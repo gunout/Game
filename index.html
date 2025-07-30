@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Émulateur Néon - Choix de Jeux</title>
+    <style>
+        body {
+            font-family: 'Arial Black', sans-serif;
+            background-color: #0a0a1a;
+            margin: 0;
+            padding: 0;
+            color: #00ffff;
+            text-align: center;
+            overflow-x: hidden;
+        }
+        
+        .neon-text {
+            text-shadow: 
+                0 0 10px #00ffff,
+                0 0 20px #00ffff,
+                0 0 30px #0088ff;
+            animation: flicker 1.5s infinite alternate;
+        }
+        
+        @keyframes flicker {
+            0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+                text-shadow: 
+                    0 0 10px #00ffff,
+                    0 0 20px #00ffff,
+                    0 0 30px #0088ff,
+                    0 0 40px #0088ff;
+            }
+            20%, 24%, 55% {
+                text-shadow: none;
+            }
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: rgba(0, 20, 40, 0.7);
+            border: 2px solid #00ffff;
+            box-shadow: 
+                0 0 15px #00ffff,
+                inset 0 0 15px #00ffff;
+            border-radius: 15px;
+        }
+        
+        .emulator-container {
+            position: relative;
+            padding-bottom: 75%;
+            height: 0;
+            overflow: hidden;
+            margin: 20px 0;
+            border: 3px solid #00ffff;
+            box-shadow: 0 0 20px #0088ff;
+        }
+        
+        .emulator-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        .controls {
+            background-color: rgba(0, 40, 60, 0.6);
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            border: 1px solid #00ffff;
+            text-align: left;
+        }
+        
+        .game-selector {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .game-btn {
+            background: rgba(0, 60, 100, 0.5);
+            color: #00ffff;
+            border: 2px solid #00ffff;
+            padding: 8px 12px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 13px;
+            transition: all 0.3s;
+            box-shadow: 0 0 8px #00ffff;
+            white-space: nowrap;
+        }
+        
+        .game-btn:hover, .game-btn.active {
+            background: #00ffff;
+            color: #0a0a1a;
+            box-shadow: 0 0 15px #00ffff;
+        }
+        
+        .glow-button {
+            background: transparent;
+            color: #00ffff;
+            border: 2px solid #00ffff;
+            padding: 10px 20px;
+            margin: 10px;
+            border-radius: 30px;
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 0 10px #00ffff;
+        }
+        
+        .glow-button:hover {
+            background: #00ffff;
+            color: #0a0a1a;
+            box-shadow: 0 0 20px #00ffff, 0 0 30px #0088ff;
+        }
+        
+        footer {
+            margin-top: 30px;
+            font-size: 12px;
+            color: #0088ff;
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 0.7; }
+            50% { opacity: 1; }
+            100% { opacity: 0.7; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container pulse">
+        <h1 class="neon-text">ÉMULATEUR NÉON</h1>
+        
+        <div class="game-selector">
+            <button class="game-btn active" onclick="changeGame('fifa97')">FIFA 97</button>
+            <button class="game-btn" onclick="changeGame('lhx')">LHX</button>
+            <button class="game-btn" onclick="changeGame('roadrash')">Road Rash</button>
+            <button class="game-btn" onclick="changeGame('rayman')">Rayman 2</button>
+            <button class="game-btn" onclick="changeGame('racing')">Racing Lagoon</button>
+        </div>
+        
+        <div id="game-title">
+            <h2 class="neon-text">FIFA 97 GOLD EDITION</h2>
+            <p class="neon-text">Édition Europe (FR/DE/ES/IT/SV) - SNES</p>
+        </div>
+        
+        <div class="emulator-container">
+            <iframe 
+                id="emulator-frame"
+                src="https://www.retrogames.cc/embed/19637-fifa-97-gold-edition-europe-en-fr-de-es-it-sv.html" 
+                frameborder="no" 
+                allowfullscreen="true" 
+                webkitallowfullscreen="true" 
+                mozallowfullscreen="true">
+            </iframe>
+        </div>
+        
+        <div class="controls">
+            <h3 class="neon-text">COMMANDES :</h3>
+            <div id="fifa-controls">
+                <ul>
+                    <li><strong>Flèches :</strong> Déplacement</li>
+                    <li><strong>X :</strong> Tir / Passe courte</li>
+                    <li><strong>Z :</strong> Passe longue / Centre</li>
+                    <li><strong>A :</strong> Sprint</li>
+                    <li><strong>S :</strong> Frappe / Dribble</li>
+                    <li><strong>Espace :</strong> Changement de joueur</li>
+                    <li><strong>Entrée :</strong> Pause / Menu</li>
+                </ul>
+            </div>
+            <div id="lhx-controls" style="display:none">
+                <ul>
+                    <li><strong>Flèches :</strong> Direction</li>
+                    <li><strong>A :</strong> Tir principal</li>
+                    <li><strong>B :</strong> Tir secondaire</li>
+                    <li><strong>X/Y :</strong> Changement d'arme</li>
+                    <li><strong>Start :</strong> Pause</li>
+                    <li><strong>Select :</strong> Carte</li>
+                </ul>
+            </div>
+            <div id="roadrash-controls" style="display:none">
+                <ul>
+                    <li><strong>Flèches :</strong> Direction</li>
+                    <li><strong>A :</strong> Accélérer</li>
+                    <li><strong>B :</strong> Frein</li>
+                    <li><strong>X :</strong> Coup de poing gauche</li>
+                    <li><strong>Y :</strong> Coup de poing droit</li>
+                    <li><strong>L/R :</strong> Coups de pied</li>
+                    <li><strong>Start :</strong> Pause</li>
+                </ul>
+            </div>
+            <div id="rayman-controls" style="display:none">
+                <ul>
+                    <li><strong>Flèches :</strong> Déplacement</li>
+                    <li><strong>A :</strong> Sauter</li>
+                    <li><strong>B :</strong> Tirer (énergie)</li>
+                    <li><strong>X :</strong> Action/secondaire</li>
+                    <li><strong>Y :</strong> Accroupir</li>
+                    <li><strong>L/R :</strong> Changer caméra</li>
+                    <li><strong>Start :</strong> Pause</li>
+                </ul>
+            </div>
+            <div id="racing-controls" style="display:none">
+                <ul>
+                    <li><strong>Flèches :</strong> Direction</li>
+                    <li><strong>X :</strong> Accélérer</li>
+                    <li><strong>Z :</strong> Frein</li>
+                    <li><strong>A :</strong> Boost</li>
+                    <li><strong>S :</strong> Changement de vue</li>
+                    <li><strong>L/R :</strong> Dérive</li>
+                    <li><strong>Start :</strong> Pause/Menu</li>
+                </ul>
+            </div>
+        </div>
+        
+        <button class="glow-button" onclick="alert('Pour sauvegarder : Menu de l\'émulateur (icône disquette)')">SAUVEGARDE</button>
+        <button class="glow-button" onclick="location.reload()">REDÉMARRER</button>
+    </div>
+    
+    <footer>
+        <p>Émulateur fourni par RetroGames.cc | Design Néon © 2023</p>
+    </footer>
+
+    <script>
+        function changeGame(game) {
+            const buttons = document.querySelectorAll('.game-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            
+            if (game === 'fifa97') {
+                // FIFA 97
+                document.getElementById('emulator-frame').src = 
+                    "https://www.retrogames.cc/embed/19637-fifa-97-gold-edition-europe-en-fr-de-es-it-sv.html";
+                document.getElementById('game-title').innerHTML = `
+                    <h2 class="neon-text">FIFA 97 GOLD EDITION</h2>
+                    <p class="neon-text">Édition Europe (FR/DE/ES/IT/SV) - SNES</p>
+                `;
+                document.getElementById('fifa-controls').style.display = 'block';
+                document.getElementById('lhx-controls').style.display = 'none';
+                document.getElementById('roadrash-controls').style.display = 'none';
+                document.getElementById('rayman-controls').style.display = 'none';
+                document.getElementById('racing-controls').style.display = 'none';
+                document.querySelector('.game-btn[onclick="changeGame(\'fifa97\')"]').classList.add('active');
+            } else if (game === 'lhx') {
+                // LHX Attack Chopper
+                document.getElementById('emulator-frame').src = 
+                    "https://www.retrogames.cc/embed/28482-lhx-attack-chopper-usa-europe.html";
+                document.getElementById('game-title').innerHTML = `
+                    <h2 class="neon-text">LHX ATTACK CHOPPER</h2>
+                    <p class="neon-text">Version USA/Europe - MegaDrive</p>
+                `;
+                document.getElementById('fifa-controls').style.display = 'none';
+                document.getElementById('lhx-controls').style.display = 'block';
+                document.getElementById('roadrash-controls').style.display = 'none';
+                document.getElementById('rayman-controls').style.display = 'none';
+                document.getElementById('racing-controls').style.display = 'none';
+                document.querySelector('.game-btn[onclick="changeGame(\'lhx\')"]').classList.add('active');
+            } else if (game === 'roadrash') {
+                // Road Rash 3D
+                document.getElementById('emulator-frame').src = 
+                    "https://www.retrogames.cc/embed/41508-road-rash-3d.html";
+                document.getElementById('game-title').innerHTML = `
+                    <h2 class="neon-text">ROAD RASH 3D</h2>
+                    <p class="neon-text">Jeu de course/combat - PlayStation</p>
+                `;
+                document.getElementById('fifa-controls').style.display = 'none';
+                document.getElementById('lhx-controls').style.display = 'none';
+                document.getElementById('roadrash-controls').style.display = 'block';
+                document.getElementById('rayman-controls').style.display = 'none';
+                document.getElementById('racing-controls').style.display = 'none';
+                document.querySelector('.game-btn[onclick="changeGame(\'roadrash\')"]').classList.add('active');
+            } else if (game === 'rayman') {
+                // Rayman 2
+                document.getElementById('emulator-frame').src = 
+                    "https://www.retrogames.cc/embed/41925-rayman-2-the-great-escape.html";
+                document.getElementById('game-title').innerHTML = `
+                    <h2 class="neon-text">RAYMAN 2</h2>
+                    <p class="neon-text">The Great Escape - PlayStation</p>
+                `;
+                document.getElementById('fifa-controls').style.display = 'none';
+                document.getElementById('lhx-controls').style.display = 'none';
+                document.getElementById('roadrash-controls').style.display = 'none';
+                document.getElementById('rayman-controls').style.display = 'block';
+                document.getElementById('racing-controls').style.display = 'none';
+                document.querySelector('.game-btn[onclick="changeGame(\'rayman\')"]').classList.add('active');
+            } else {
+                // Racing Lagoon
+                document.getElementById('emulator-frame').src = 
+                    "https://www.retrogames.cc/embed/41861-racing-lagoon.html";
+                document.getElementById('game-title').innerHTML = `
+                    <h2 class="neon-text">RACING LAGOON</h2>
+                    <p class="neon-text">Jeu de course RPG - PlayStation</p>
+                `;
+                document.getElementById('fifa-controls').style.display = 'none';
+                document.getElementById('lhx-controls').style.display = 'none';
+                document.getElementById('roadrash-controls').style.display = 'none';
+                document.getElementById('rayman-controls').style.display = 'none';
+                document.getElementById('racing-controls').style.display = 'block';
+                document.querySelector('.game-btn[onclick="changeGame(\'racing\')"]').classList.add('active');
+            }
+        }
+    </script>
+</body>
+</html>
